@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nameModal" onclick="showModalData()">
+            Show Name Modal
+        </button>
+        <button type="button" class="btn btn-success ms-3" data-bs-toggle="modal" data-bs-target="#editNameModal">
+            Edit Name
+        </button>
+    </div>
+
+    <div class="modal fade" id="nameModal" tabindex="-1" aria-labelledby="nameModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="nameModalLabel">Name Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>First Name:</strong> <span id="firstName"></span></p>
+                    <p><strong>Last Name:</strong> <span id="lastName"></span></p>
+                    <p><strong>Full Name:</strong> <span id="fullName"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editNameModal" tabindex="-1" aria-labelledby="editNameModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editNameModalLabel">Edit Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editNameForm">
+                        <div class="mb-3">
+                            <label for="editFirstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="editFirstName" placeholder="Enter first name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editLastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="editLastName" placeholder="Enter last name">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveName()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="alertMessage" class="alert alert-success mt-3 d-none" role="alert">
+    Name has been updated successfully!
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    let firstName = 'Chandra Perdana';
+    let lastName = 'Phang';
+
+    function showModalData() {
+        document.getElementById('firstName').textContent = firstName;
+        document.getElementById('lastName').textContent = lastName;
+        document.getElementById('fullName').textContent = firstName + ' ' + lastName;
+    }
+
+    function saveName() {
+        const newFirstName = document.getElementById('editFirstName').value;
+        const newLastName = document.getElementById('editLastName').value;
+
+        if (newFirstName) firstName = newFirstName;
+        if (newLastName) lastName = newLastName;
+
+        showModalData();
+
+        const editModalElement = document.getElementById('editNameModal');
+        const editModal = bootstrap.Modal.getInstance(editModalElement);
+        editModal.hide();
+
+        const alertMessage = document.getElementById('alertMessage');
+        alertMessage.classList.remove('d-none');
+
+        setTimeout(() => {
+            alertMessage.classList.add('d-none');
+        }, 3000);
+    }
+</script>
+
+</body>
+</html>
